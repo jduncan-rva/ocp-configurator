@@ -1,0 +1,57 @@
+<html>
+<head>
+  <title>OpenShift Configurator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='rh_favicon.png') }}">
+</head>
+<body>
+<div class="well">
+  <h1>OpenShift Configurator</h1>
+  <p>
+    A graphical interface to configure your OpenShift cluster with commonly used demo/workshop configurations and content.
+  </p>
+</div>
+<div class="container">
+  <div class="row">
+    <h1>Upload a new configuration</h1>
+    <form action="" method="post" class="form-horizontal">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.auth_type.label(class_="control-label col-sm-2") }}
+        <div class="col-sm-10">
+          {{ form.auth_type(class_="form-control") }}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.workshop_name.label(class_="control-label col-sm-2") }}
+        <div class="col-sm-10">
+          {{ form.workshop_name(class_="form-control")}}
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          {{ form.submit(class_="btn btn-primary") }}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <h1>Current ConfigMap</h1>
+    <p>
+      The OpenShift Configurator uses a RESTful API to create a kubernetes ConfigMap. This ConfigMap API Resource is then used by an Ansible Operator to configure your OpenShift cluster.
+    </p>
+    <pre>
+      {{ config_map|tojson_pretty|safe}}
+    </pre>
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+      {{ delete_form.submit(class_="btn btn-danger") }}
+    </form>
+  </div>
+</div>
+</body>
+</html>
