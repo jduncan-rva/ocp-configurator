@@ -5,9 +5,9 @@ import requests
 from forms import ConfigMapForm, DeleteConfigMapForm
 from api import ConfigMapAPI
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dh20e8hf982rhfw8hf80923hf8902hf028hf2809hf082hf'
-api = Api(app)
+application = Flask(__name__)
+application.config['SECRET_KEY'] = 'dh20e8hf982rhfw8hf80923hf8902hf028hf2809hf082hf'
+api = Api(application)
 
 api_version = 'v1'
 port_number = 8000
@@ -20,10 +20,10 @@ def to_json_pretty(value):
     return json.dumps(value, indent=2, separators=(',', ': '))
 
 
-app.jinja_env.filters['tojson_pretty'] = to_json_pretty
+application.jinja_env.filters['tojson_pretty'] = to_json_pretty
 
 
-@app.route('/', methods=['GET', 'POST', 'DELETE'])
+@application.route('/', methods=['GET', 'POST', 'DELETE'])
 def index():
     """Renders the index page with an existing config if present, and the form to create a new ConfigMap"""
     form = ConfigMapForm()
@@ -56,4 +56,4 @@ def index():
 api.add_resource(ConfigMapAPI, '/api/%s/configmap' % api_version, endpoint='configmap')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=port_number)
+    application.run(host='0.0.0.0', debug=True, port=port_number)

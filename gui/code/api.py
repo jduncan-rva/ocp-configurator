@@ -3,7 +3,7 @@ import json
 import os
 
 api_version = 'v1'
-configmap_file = 'configmap.json'
+configmap_file = '/tmp/configmap.json'
 
 reqparse = reqparse.RequestParser()
 reqparse.add_argument('auth_type',
